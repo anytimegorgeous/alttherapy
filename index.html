@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alt Therapy — Therapy That Lives Where You Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --gold: #e8a020;
+  --gold-light: #f5c96a;
+  --gold-pale: #fdf6e3;
+  --forest: #2d5a3d;
+  --forest-light: #4a8a5e;
+  --forest-pale: #e8f2eb;
+  --terra: #c94a2a;
+  --terra-light: #e07a5a;
+  --terra-pale: #fdf0ec;
+  --ink: #1a1a1a;
+  --ink-soft: #3a3a3a;
+  --warm: #fdf8f2;
+  --white: #ffffff;
+  --muted: #888;
+  --border: #e8e0d4;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--ink);overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 56px;
+  background:rgba(253,248,242,0.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.wordmark{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:600;letter-spacing:0.04em;
+  color:var(--ink);text-decoration:none;
+  display:flex;flex-direction:column;line-height:1;
+}
+.wordmark .tagline{
+  font-size:9px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);font-family:'DM Sans',sans-serif;
+  font-weight:400;margin-top:3px;
+}
+.nav-right{display:flex;align-items:center;gap:32px;}
+.nav-link{
+  font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ink-soft);text-decoration:none;font-weight:500;
+  transition:color 0.2s;
+}
+.nav-link:hover{color:var(--forest);}
+.nav-btn{
+  background:var(--forest);color:white;
+  padding:11px 28px;border-radius:60px;
+  font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+  font-weight:600;text-decoration:none;
+  transition:all 0.25s;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+}
+.nav-btn:hover{background:var(--forest-light);transform:translateY(-1px);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:140px 56px 80px;
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+.hero-bg-orb{
+  position:absolute;border-radius:50%;filter:blur(80px);opacity:0.18;pointer-events:none;
+}
+.orb1{width:600px;height:600px;background:var(--gold);top:-100px;left:-150px;}
+.orb2{width:500px;height:500px;background:var(--terra);top:200px;right:-100px;}
+.orb3{width:400px;height:400px;background:var(--forest);bottom:-50px;left:200px;}
+
+.hero-eyebrow{
+  font-size:10px;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold-light);font-weight:500;margin-bottom:32px;
+  display:inline-flex;align-items:center;gap:14px;
+  animation:fadeUp 0.7s ease both;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{
+  content:'';display:block;width:28px;height:1px;background:var(--gold-light);
+}
+.hero-wordmark-big{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(72px,10vw,140px);
+  font-weight:300;line-height:0.9;
+  color:white;letter-spacing:-0.02em;
+  margin-bottom:0;
+  animation:fadeUp 0.7s 0.1s ease both;
+}
+.hero-wordmark-big em{
+  font-style:italic;color:var(--gold-light);
+}
+.hero-tagline-big{
+  font-size:clamp(13px,1.5vw,17px);
+  color:rgba(255,255,255,0.45);
+  letter-spacing:0.12em;text-transform:uppercase;
+  margin-top:20px;margin-bottom:64px;
+  font-weight:300;
+  animation:fadeUp 0.7s 0.2s ease both;
+}
+
+/* INTAKE HERO CARD */
+.intake-hero{
+  background:white;border-radius:16px;
+  padding:48px 52px;
+  max-width:780px;width:100%;
+  box-shadow:0 32px 80px rgba(0,0,0,0.3);
+  text-align:left;
+  animation:fadeUp 0.8s 0.3s ease both;
+  position:relative;z-index:2;
+}
+.intake-hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;font-weight:500;color:var(--ink);
+  margin-bottom:6px;line-height:1.2;
+}
+.intake-hero-sub{
+  font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6;font-weight:300;
+}
+.chips-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;}
+.chip{
+  padding:9px 18px;border:1.5px solid var(--border);border-radius:60px;
+  font-size:13px;cursor:pointer;transition:all 0.2s;background:white;
+  color:var(--ink-soft);user-select:none;font-weight:400;
+}
+.chip:hover:not(.active){border-color:var(--forest);color:var(--forest);}
+.chip.active{background:var(--forest);color:white;border-color:var(--forest);}
+.chip.active-gold{background:var(--gold);color:white;border-color:var(--gold);}
+.chip.active-terra{background:var(--terra);color:white;border-color:var(--terra);}
+.intake-textarea{
+  width:100%;border:1.5px solid var(--border);border-radius:10px;
+  padding:14px 18px;font-family:'DM Sans',sans-serif;
+  font-size:14px;color:var(--ink);resize:none;
+  background:var(--warm);margin-bottom:16px;line-height:1.6;
+  transition:border-color 0.2s;
+}
+.intake-textarea:focus{outline:none;border-color:var(--forest);}
+.intake-result{
+  display:none;background:var(--forest-pale);border-radius:10px;
+  padding:18px 20px;margin-bottom:16px;
+  border-left:4px solid var(--forest);
+}
+.intake-result.show{display:block;}
+.intake-result p{font-size:14px;line-height:1.7;color:var(--ink);margin:0;}
+.intake-result strong{color:var(--forest);}
+.btn-full{
+  width:100%;padding:16px;border-radius:60px;
+  background:var(--forest);color:white;border:none;
+  font-family:'DM Sans',sans-serif;font-size:14px;
+  letter-spacing:0.08em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.25s;
+}
+.btn-full:hover{background:var(--forest-light);transform:translateY(-1px);}
+
+/* ── PAGE OVERLAY ── */
+.page-overlay{
+  display:none;
+  position:fixed;inset:0;z-index:999;
+  background:rgba(26,26,26,0.6);
+  backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;
+}
+.page-overlay.show{display:flex;}
+.overlay-card{
+  background:white;border-radius:16px;
+  padding:48px 52px;text-align:center;
+  max-width:420px;width:90%;
+  box-shadow:0 32px 80px rgba(0,0,0,0.3);
+}
+.overlay-orbs{
+  display:flex;justify-content:center;align-items:center;gap:12px;
+  margin-bottom:28px;
+}
+.overlay-orb{
+  width:16px;height:16px;border-radius:50%;
+  animation:orbPulse 1.4s ease-in-out infinite;
+}
+.overlay-orb-a{background:var(--forest);animation-delay:0s;}
+.overlay-orb-b{background:var(--gold);animation-delay:0.2s;}
+.overlay-orb-c{background:var(--terra);animation-delay:0.4s;}
+.overlay-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:500;color:var(--ink);
+  margin-bottom:8px;
+}
+.overlay-msg{
+  font-size:13px;color:var(--muted);
+  min-height:20px;transition:opacity 0.4s;
+  margin-bottom:20px;line-height:1.6;
+}
+.overlay-bar{
+  width:100%;height:3px;background:var(--border);
+  border-radius:2px;overflow:hidden;
+}
+.overlay-bar-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--forest),var(--gold),var(--terra));
+  border-radius:2px;transition:width 0.4s ease;
+}
+
+
+.analyzing-overlay{
+  display:none;
+  text-align:center;padding:32px 20px;
+}
+.analyzing-overlay.show{display:block;}
+.analyzing-orbs{
+  display:flex;justify-content:center;align-items:center;gap:10px;
+  margin-bottom:24px;
+}
+.analyzing-orb{
+  width:14px;height:14px;border-radius:50%;
+  animation:orbPulse 1.4s ease-in-out infinite;
+}
+.orb-a{background:var(--forest);animation-delay:0s;}
+.orb-b{background:var(--gold);animation-delay:0.2s;}
+.orb-c{background:var(--terra);animation-delay:0.4s;}
+@keyframes orbPulse{
+  0%,100%{transform:scale(0.7);opacity:0.4;}
+  50%{transform:scale(1.3);opacity:1;}
+}
+.analyzing-label{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:400;color:var(--ink);
+  margin-bottom:8px;
+}
+.analyzing-sub{
+  font-size:13px;color:var(--muted);letter-spacing:0.04em;
+  min-height:20px;transition:opacity 0.4s;
+}
+.analyzing-bar{
+  width:100%;height:3px;background:var(--border);
+  border-radius:2px;margin-top:20px;overflow:hidden;
+}
+.analyzing-bar-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--forest),var(--gold),var(--terra));
+  border-radius:2px;
+  transition:width 0.4s ease;
+}
+
+.field-input-error{border-color:var(--terra) !important;}
+.btn-full:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+
+.scroll-hint{
+  margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(255,255,255,0.3);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
+  animation:fadeUp 1s 0.8s ease both;
+}
+.scroll-dot{
+  width:1px;height:40px;background:rgba(255,255,255,0.2);
+  position:relative;overflow:hidden;
+}
+.scroll-dot::after{
+  content:'';position:absolute;top:-100%;left:0;right:0;
+  height:100%;background:var(--gold-light);
+  animation:scrollDot 1.8s ease-in-out infinite;
+}
+@keyframes scrollDot{0%{top:-100%;}100%{top:100%;}}
+
+/* ── MANIFESTO ── */
+.manifesto{
+  padding:100px 56px;
+  display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:center;
+  background:var(--warm);
+}
+.manifesto-left{position:relative;}
+.manifesto-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:200px;font-weight:300;
+  color:var(--forest-pale);line-height:1;
+  position:absolute;top:-40px;left:-20px;z-index:0;
+  user-select:none;
+}
+.manifesto-eyebrow{
+  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--terra);font-weight:600;margin-bottom:20px;
+  position:relative;z-index:1;
+  display:flex;align-items:center;gap:10px;
+}
+.manifesto-eyebrow::before{content:'';width:28px;height:1px;background:var(--terra);display:block;}
+.manifesto-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,3.5vw,52px);font-weight:300;line-height:1.25;
+  position:relative;z-index:1;
+}
+.manifesto-headline em{font-style:italic;color:var(--forest);}
+.manifesto-right p{
+  font-size:18px;line-height:1.9;color:var(--ink-soft);font-weight:300;
+  margin-bottom:24px;
+}
+.manifesto-right p:last-child{margin-bottom:0;}
+.manifesto-right strong{color:var(--ink);font-weight:500;}
+
+/* ── HOW IT WORKS ── */
+.how-section{background:var(--ink);padding:100px 56px;}
+.section-eyebrow{
+  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  font-weight:600;margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-eyebrow::before{content:'';width:28px;height:1px;display:block;}
+.eyebrow-gold{color:var(--gold-light);}
+.eyebrow-gold::before{background:var(--gold-light);}
+.eyebrow-terra{color:var(--terra-light);}
+.eyebrow-terra::before{background:var(--terra-light);}
+.eyebrow-forest{color:var(--forest-light);}
+.eyebrow-forest::before{background:var(--forest-light);}
+.eyebrow-dark{color:var(--terra);}
+.eyebrow-dark::before{background:var(--terra);}
+
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,4vw,58px);font-weight:300;line-height:1.15;
+  margin-bottom:16px;
+}
+.section-sub{
+  font-size:16px;color:#888;line-height:1.75;
+  max-width:560px;margin-bottom:64px;font-weight:300;
+}
+.how-section .section-title{color:white;}
+.how-section .section-sub{color:rgba(255,255,255,0.45);}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.step-card{
+  background:rgba(255,255,255,0.04);
+  padding:52px 44px;
+  border-top:2px solid transparent;
+  transition:all 0.3s;cursor:default;
+}
+.step-card:hover{background:rgba(255,255,255,0.07);border-top-color:var(--gold);}
+.step-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:72px;font-weight:300;
+  color:rgba(255,255,255,0.08);
+  line-height:1;margin-bottom:28px;display:block;
+}
+.step-card h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:500;color:white;
+  margin-bottom:16px;
+}
+.step-card p{font-size:15px;line-height:1.8;color:rgba(255,255,255,0.5);font-weight:300;}
+
+/* ── SERVICES ── */
+.services-section{padding:100px 56px;background:var(--warm);}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto auto;
+  gap:16px;
+}
+.svc{
+  background:white;border-radius:12px;
+  padding:44px 40px;
+  position:relative;overflow:hidden;
+  transition:all 0.3s;cursor:default;
+  border:1px solid var(--border);
+}
+.svc::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:3px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.3s;
+}
+.svc:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.1);}
+.svc:hover::after{transform:scaleX(1);}
+.svc-gold::after{background:var(--gold);}
+.svc-terra::after{background:var(--terra);}
+.svc-forest::after{background:var(--forest);}
+.svc-wide{grid-column:span 2;}
+.svc-icon{
+  font-size:32px;margin-bottom:24px;display:block;
+  width:56px;height:56px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+}
+.icon-gold{background:var(--gold-pale);}
+.icon-terra{background:var(--terra-pale);}
+.icon-forest{background:var(--forest-pale);}
+.svc h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-weight:500;margin-bottom:12px;
+}
+.svc p{font-size:15px;line-height:1.75;color:#666;font-weight:300;margin-bottom:20px;}
+.svc-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.svc-tag{
+  font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+  padding:5px 12px;border-radius:60px;font-weight:500;
+}
+.tag-gold{background:var(--gold-pale);color:var(--gold);}
+.tag-terra{background:var(--terra-pale);color:var(--terra);}
+.tag-forest{background:var(--forest-pale);color:var(--forest);}
+
+/* ── COACHES ── */
+.coaches-section{
+  background:var(--forest);
+  padding:100px 56px;
+}
+.coaches-section .section-title{color:white;}
+.coaches-section .section-sub{color:rgba(255,255,255,0.5);}
+.coaches-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:24px;
+}
+.coach-card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:12px;padding:52px 48px;
+  display:grid;grid-template-columns:auto 1fr;gap:36px;
+  align-items:start;
+  transition:all 0.3s;
+}
+.coach-card:hover{background:rgba(255,255,255,0.1);}
+.coach-avatar{
+  width:96px;height:96px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:500;color:white;
+  flex-shrink:0;
+}
+.avatar-gold{background:linear-gradient(135deg,var(--gold),var(--terra-light));}
+.avatar-forest{background:linear-gradient(135deg,var(--forest-light),#6aaa7e);}
+.coach-info h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:30px;font-weight:500;color:white;
+  margin-bottom:4px;
+}
+.coach-role{
+  font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--gold-light);font-weight:500;margin-bottom:20px;
+  display:block;
+}
+.coach-info p{font-size:15px;line-height:1.8;color:rgba(255,255,255,0.55);font-weight:300;}
+.coach-specialties{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+.coach-tag{
+  font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+  padding:5px 12px;border-radius:60px;font-weight:500;
+  background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);
+}
+
+/* ── PRICING ── */
+.pricing-section{padding:100px 56px;background:var(--warm);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.price-card{
+  background:white;border-radius:12px;
+  padding:52px 44px;
+  border:1px solid var(--border);
+  transition:all 0.3s;position:relative;overflow:hidden;
+}
+.price-card.featured{
+  background:var(--gold);border-color:var(--gold);
+  transform:scale(1.02);
+}
+.price-card:not(.featured):hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.1);}
+.price-badge{
+  position:absolute;top:24px;right:24px;
+  background:var(--terra);color:white;
+  font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  padding:5px 12px;border-radius:60px;font-weight:600;
+}
+.price-tier{
+  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--muted);font-weight:600;margin-bottom:20px;
+}
+.price-card.featured .price-tier{color:rgba(255,255,255,0.7);}
+.price-amount{
+  font-family:'Cormorant Garamond',serif;
+  font-size:64px;font-weight:300;line-height:1;color:var(--ink);
+  margin-bottom:6px;
+}
+.price-card.featured .price-amount{color:white;}
+.price-amount sup{font-size:28px;vertical-align:top;margin-top:14px;}
+.price-per{font-size:13px;color:var(--muted);margin-bottom:36px;}
+.price-card.featured .price-per{color:rgba(255,255,255,0.65);}
+.price-features{list-style:none;margin-bottom:44px;}
+.price-feature{
+  font-size:14px;color:var(--ink-soft);
+  padding:12px 0;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:12px;font-weight:300;
+}
+.price-card.featured .price-feature{
+  color:rgba(255,255,255,0.85);border-bottom-color:rgba(255,255,255,0.2);
+}
+.price-feature::before{content:'✓';color:var(--forest);font-weight:600;flex-shrink:0;}
+.price-card.featured .price-feature::before{color:white;}
+.btn-price{
+  width:100%;padding:15px;border-radius:60px;
+  font-family:'DM Sans',sans-serif;font-size:13px;
+  letter-spacing:0.1em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.25s;border:2px solid var(--forest);
+  color:var(--forest);background:transparent;
+}
+.btn-price:hover{background:var(--forest);color:white;}
+.price-card.featured .btn-price{
+  background:white;color:var(--gold);border-color:white;
+}
+.price-card.featured .btn-price:hover{background:rgba(255,255,255,0.9);}
+
+/* ── TESTIMONIALS ── */
+.testimonials-section{background:var(--ink);padding:100px 56px;}
+.testimonials-section .section-title{color:white;}
+.testimonials-section .section-sub{color:rgba(255,255,255,0.4);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.testi{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;padding:44px 40px;position:relative;
+  transition:all 0.3s;
+}
+.testi:hover{background:rgba(255,255,255,0.07);}
+.testi-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:48px;color:var(--gold-light);
+  line-height:1;margin-bottom:12px;opacity:0.6;
+}
+.testi p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;line-height:1.65;color:rgba(255,255,255,0.85);
+  font-style:italic;font-weight:300;margin-bottom:32px;
+}
+.testi-author{display:flex;align-items:center;gap:14px;}
+.testi-av{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:white;font-weight:500;
+  font-family:'Cormorant Garamond',serif;
+}
+.testi-av-1{background:linear-gradient(135deg,var(--gold),var(--terra-light));}
+.testi-av-2{background:linear-gradient(135deg,var(--forest),var(--forest-light));}
+.testi-av-3{background:linear-gradient(135deg,var(--terra),var(--gold));}
+.testi-name{font-size:14px;font-weight:500;color:white;}
+.testi-desc{font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px;}
+
+/* ── BOOK BAND ── */
+.book-section{
+  background:var(--terra);padding:80px 56px;
+  display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;
+}
+.book-section h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,3.5vw,50px);font-weight:300;
+  color:white;line-height:1.25;margin-bottom:16px;
+}
+.book-section p{
+  font-size:17px;line-height:1.8;color:rgba(255,255,255,0.75);
+  max-width:560px;margin-bottom:36px;font-weight:300;
+}
+.book-btns{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-book-w{
+  background:white;color:var(--terra);
+  padding:14px 32px;border-radius:60px;border:none;
+  font-family:'DM Sans',sans-serif;font-size:13px;
+  letter-spacing:0.08em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block;
+}
+.btn-book-w:hover{background:rgba(255,255,255,0.9);transform:translateY(-1px);}
+.btn-book-o{
+  background:transparent;color:white;
+  padding:14px 32px;border-radius:60px;
+  border:2px solid rgba(255,255,255,0.45);
+  font-family:'DM Sans',sans-serif;font-size:13px;
+  letter-spacing:0.08em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block;
+}
+.btn-book-o:hover{border-color:white;transform:translateY(-1px);}
+.book-spine{
+  width:140px;height:210px;border-radius:4px;
+  background:rgba(0,0,0,0.15);
+  border:1px solid rgba(255,255,255,0.2);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.book-spine-inner{text-align:center;padding:20px;}
+.book-spine-inner .bt{
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;font-style:italic;color:white;line-height:1.4;
+}
+.book-spine-inner .ba{
+  font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(255,255,255,0.6);margin-top:12px;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:#111;color:rgba(255,255,255,0.45);
+  padding:72px 56px 36px;
+}
+.footer-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;
+  padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,0.08);
+  margin-bottom:32px;
+}
+.footer-brand .wm{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:600;color:white;
+  display:block;margin-bottom:16px;letter-spacing:0.04em;
+}
+.footer-brand p{font-size:14px;line-height:1.8;max-width:280px;}
+.footer-col h5{
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+  color:white;font-weight:600;margin-bottom:20px;
+}
+.footer-col a{
+  display:block;font-size:14px;font-weight:300;
+  color:rgba(255,255,255,0.4);text-decoration:none;
+  margin-bottom:10px;transition:color 0.2s;
+}
+.footer-col a:hover{color:var(--gold-light);}
+.footer-bottom{
+  display:flex;justify-content:space-between;
+  align-items:flex-start;flex-wrap:wrap;gap:20px;
+}
+.footer-copy{font-size:12px;}
+.footer-legal{
+  font-size:11px;color:rgba(255,255,255,0.2);
+  max-width:600px;line-height:1.7;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(28px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:16px 20px;}
+  .nav-right .nav-link{display:none;}
+  .hero{padding:120px 20px 60px;}
+  .intake-hero{padding:28px 24px;}
+  .manifesto,.how-section,.services-section,.coaches-section,.pricing-section,.testimonials-section,.book-section,.pricing-section{padding:60px 20px;}
+  .steps,.services-grid,.coaches-grid,.pricing-grid,.testi-grid{grid-template-columns:1fr;}
+  .svc-wide{grid-column:span 1;}
+  .book-section{grid-template-columns:1fr;}
+  .book-spine{display:none;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  footer{padding:48px 20px 24px;}
+  .manifesto{grid-template-columns:1fr;}
+  .manifesto-num{font-size:120px;}
+  .coach-card{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE OVERLAY -->
+<div class="page-overlay" id="pageOverlay">
+  <div class="overlay-card">
+    <div class="overlay-orbs">
+      <div class="overlay-orb overlay-orb-a"></div>
+      <div class="overlay-orb overlay-orb-b"></div>
+      <div class="overlay-orb overlay-orb-c"></div>
+    </div>
+    <div class="overlay-title">Personalizing your recommendation…</div>
+    <div class="overlay-msg" id="overlayMsg">Reading what you shared</div>
+    <div class="overlay-bar"><div class="overlay-bar-fill" id="overlayBar"></div></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="wordmark" href="#">
+    ALT THERAPY
+    <span class="tagline">Therapy that lives where you live</span>
+  </a>
+  <div class="nav-right">
+    <a class="nav-link" href="#how">How It Works</a>
+    <a class="nav-link" href="#services">Services</a>
+    <a class="nav-link" href="#coaches">Our Coaches</a>
+    <a class="nav-link" href="#pricing">Pricing</a>
+    <a class="nav-btn" href="#intake">Get Matched</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="intake">
+  <div class="hero-bg-orb orb1"></div>
+  <div class="hero-bg-orb orb2"></div>
+  <div class="hero-bg-orb orb3"></div>
+
+  <div class="hero-eyebrow">Seattle & Pacific Northwest</div>
+  <h1 class="hero-wordmark-big">ALT <em>THERAPY</em></h1>
+  <p class="hero-tagline-big">Therapy that lives where you live</p>
+
+  <div class="intake-hero">
+    <h2 class="intake-hero-title">What are you navigating right now?</h2>
+    <p class="intake-hero-sub">Select everything that applies — or describe it in your own words below. We'll match you to the right support instantly.</p>
+    <div class="chips-wrap" id="chipsWrap">
+      <div class="chip" onclick="toggleChip(this,'forest')">Feeling lonely</div>
+      <div class="chip" onclick="toggleChip(this,'terra')">Relationship tension</div>
+      <div class="chip" onclick="toggleChip(this,'forest')">Life feels stuck</div>
+      <div class="chip" onclick="toggleChip(this,'gold')">Dating struggles</div>
+      <div class="chip" onclick="toggleChip(this,'forest')">Anxiety</div>
+      <div class="chip" onclick="toggleChip(this,'terra')">Need someone to talk to</div>
+      <div class="chip" onclick="toggleChip(this,'gold')">Big decision ahead</div>
+      <div class="chip" onclick="toggleChip(this,'terra')">Grief or loss</div>
+      <div class="chip" onclick="toggleChip(this,'forest')">Career crossroads</div>
+      <div class="chip" onclick="toggleChip(this,'gold')">Couples friction</div>
+      <div class="chip" onclick="toggleChip(this,'terra')">Social anxiety</div>
+      <div class="chip" onclick="toggleChip(this,'forest')">Just need a friend</div>
+    </div>
+    <textarea class="intake-textarea" rows="3" id="intakeText" placeholder="Or tell us what's going on in your own words — even a few sentences helps us match you perfectly..."></textarea>
+
+    <!-- Step 1: AI Match button -->
+    <div id="step1">
+      <button class="btn-full" onclick="analyzeIntake()" id="matchBtn">Get My Personalized Match →</button>
+      <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:12px;">No commitment · Your first step is a free 15-minute video call</p>
+    </div>
+
+    <!-- Loading animation -->
+    <div class="analyzing-overlay" id="analyzingOverlay">
+      <div class="analyzing-orbs">
+        <div class="analyzing-orb orb-a"></div>
+        <div class="analyzing-orb orb-b"></div>
+        <div class="analyzing-orb orb-c"></div>
+      </div>
+      <div class="analyzing-label">Personalizing your recommendation…</div>
+      <div class="analyzing-sub" id="analyzingMsg">Reading what you shared</div>
+      <div class="analyzing-bar"><div class="analyzing-bar-fill" id="analyzingBar"></div></div>
+    </div>
+
+    <!-- AI Result -->
+    <div class="intake-result" id="intakeResult">
+      <p id="intakeResultText"></p>
+    </div>
+
+    <!-- Step 2: Contact form (shown after AI response) -->
+    <div id="step2" style="display:none;">
+      <div style="border-top:1px solid var(--border);margin:24px 0 20px;"></div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;margin-bottom:6px;color:var(--ink);">Claim your free 15-minute video call</p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6;">One of our coaches will reach out within 24 hours to schedule. No obligation — just a conversation.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+        <input type="text" id="userName" placeholder="Your name *" style="padding:13px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--warm);transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--forest)'" onblur="this.style.borderColor='var(--border)'"/>
+        <input type="email" id="userEmail" placeholder="Email address *" style="padding:13px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--warm);transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--forest)'" onblur="this.style.borderColor='var(--border)'"/>
+      </div>
+      <input type="tel" id="userPhone" placeholder="Phone number (optional)" style="width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);background:var(--warm);margin-bottom:16px;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--forest)'" onblur="this.style.borderColor='var(--border)'"/>
+      <div id="formMsg" style="display:none;padding:14px 16px;border-radius:8px;border-left:4px solid;font-size:13px;line-height:1.6;margin-bottom:14px;"></div>
+      <button class="btn-full" onclick="submitForm()" id="submitBtn">Book My Free Call →</button>
+      <p style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px;">By submitting you agree to be contacted by an Alt Therapy coach.</p>
+    </div>
+
+    <!-- Step 3: Confirmation -->
+    <div id="step3" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:48px;margin-bottom:16px;">🌱</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin-bottom:12px;color:var(--forest);">We've received your request.</h3>
+      <p style="font-size:15px;line-height:1.8;color:#666;max-width:420px;margin:0 auto;">One of our coaches will be in touch within <strong>24 hours</strong> to schedule your free 15-minute video call. Check your inbox — we'll send you a confirmation shortly.</p>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-dot"></div>
+    scroll to explore
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-left">
+    <div class="manifesto-num">01</div>
+    <div class="manifesto-eyebrow">Our Philosophy</div>
+    <h2 class="manifesto-headline">A different kind<br>of <em>support.</em></h2>
+  </div>
+  <div class="manifesto-right reveal">
+    <p>Most people don't need a clinical therapist. They need <strong>a warm, wise human who actually shows up</strong> — not across a desk, but alongside them at routine events, daily activities, and fun outings.</p>
+    <p>We're bringing back what used to be natural: a trusted confidant, a friend who knows how to listen, a coach who walks through life with you — not a 50-minute office hour with a clipboard.</p>
+    <p>Alt Therapy is <strong>real-life coaching and companionship</strong> for modern humans navigating loneliness, love, and everything in between. We meet you where you are. Literally.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-eyebrow eyebrow-gold">How It Works</div>
+  <h2 class="section-title">Simple. Human. Yours.</h2>
+  <p class="section-sub">No waiting rooms. No intake forms that take 45 minutes. Just tell us where you are and we design the support around your actual life.</p>
+  <div class="steps">
+    <div class="step-card reveal">
+      <span class="step-num">01</span>
+      <h3>Tell us what's going on</h3>
+      <p>Use our intake tool above — select what you're navigating or describe it in your own words. Our AI reads between the lines and identifies exactly the right type of support for you.</p>
+    </div>
+    <div class="step-card reveal">
+      <span class="step-num">02</span>
+      <h3>We design your support</h3>
+      <p>You receive a personalized care proposal — which type of session, which coach, what format (walks, coffee, home visits, activity sessions) — all shaped around how you actually live.</p>
+    </div>
+    <div class="step-card reveal">
+      <span class="step-num">03</span>
+      <h3>We show up in your world</h3>
+      <p>Your coach meets you where you are. Grocery run feeling overwhelming? We come. Pre-event nerves? We're there. Couple in friction? We visit your home. Life-size support.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-eyebrow eyebrow-terra">What We Offer</div>
+  <h2 class="section-title">Built around your life,<br>not the other way around.</h2>
+  <p class="section-sub">Every service is delivered in real environments — not offices. You tell us what you need; we bring it to you, wherever that is.</p>
+  <div class="services-grid">
+    <div class="svc svc-gold reveal">
+      <div class="svc-icon icon-gold">🚶</div>
+      <h3>Walk & Talk Sessions</h3>
+      <p>Movement unlocks conversation in ways an office never can. Our coaches walk alongside you through parks, waterfronts, and neighborhoods while you process, vent, and find clarity.</p>
+      <div class="svc-tags">
+        <span class="svc-tag tag-gold">Anxiety</span>
+        <span class="svc-tag tag-gold">Loneliness</span>
+        <span class="svc-tag tag-gold">Overwhelm</span>
+      </div>
+    </div>
+    <div class="svc svc-terra reveal">
+      <div class="svc-icon icon-terra">💑</div>
+      <h3>Couples Companionship</h3>
+      <p>We visit your home, your favorite spot, your routine. A skilled relationship coach sits inside your actual life — not a neutral office — and helps you two find your footing again.</p>
+      <div class="svc-tags">
+        <span class="svc-tag tag-terra">Communication</span>
+        <span class="svc-tag tag-terra">Conflict</span>
+        <span class="svc-tag tag-terra">Reconnection</span>
+      </div>
+    </div>
+    <div class="svc svc-forest reveal">
+      <div class="svc-icon icon-forest">🎯</div>
+      <h3>Activity Sessions</h3>
+      <p>Golf, cooking, a museum, a market, a hike — we build sessions around activities you actually enjoy, so healing doesn't feel like homework. Joy is the mechanism.</p>
+      <div class="svc-tags">
+        <span class="svc-tag tag-forest">Depression</span>
+        <span class="svc-tag tag-forest">Isolation</span>
+        <span class="svc-tag tag-forest">Re-engagement</span>
+      </div>
+    </div>
+    <div class="svc svc-forest reveal">
+      <div class="svc-icon icon-forest">🌱</div>
+      <h3>Life Navigation</h3>
+      <p>Stuck on a decision, struggling to date, career crossroads — we accompany you through it, literally and figuratively, in the moments where life actually happens.</p>
+      <div class="svc-tags">
+        <span class="svc-tag tag-forest">Dating</span>
+        <span class="svc-tag tag-forest">Career</span>
+        <span class="svc-tag tag-forest">Purpose</span>
+      </div>
+    </div>
+    <div class="svc svc-gold reveal">
+      <div class="svc-icon icon-gold">🧘</div>
+      <h3>Presence Support</h3>
+      <p>Big event, first date, important meeting — we accompany you before and debrief after. You don't have to walk into the hard stuff alone.</p>
+      <div class="svc-tags">
+        <span class="svc-tag tag-gold">Confidence</span>
+        <span class="svc-tag tag-gold">Social anxiety</span>
+        <span class="svc-tag tag-gold">Performance</span>
+      </div>
+    </div>
+    <div class="svc svc-terra reveal">
+      <div class="svc-icon icon-terra">☕</div>
+      <h3>Just Someone to Talk To</h3>
+      <p>No agenda. No diagnosis. Coffee, a bench, a call. Sometimes you just need a warm, wise human to hear you out — without fixing you.</p>
+      <div class="svc-tags">
+        <span class="svc-tag tag-terra">Grief</span>
+        <span class="svc-tag tag-terra">Transition</span>
+        <span class="svc-tag tag-terra">Overwhelm</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COACHES -->
+<section class="coaches-section" id="coaches">
+  <div class="section-eyebrow eyebrow-gold">Our Alt Coaches</div>
+  <h2 class="section-title" style="color:white;">The humans behind<br>the work.</h2>
+  <p class="section-sub">Our coaches aren't therapists in disguise. They're highly trained life and relationship coaches who know how to show up — in the real world, in your world.</p>
+  <div class="coaches-grid">
+    <div class="coach-card reveal">
+      <div class="coach-avatar avatar-gold">S</div>
+      <div class="coach-info">
+        <h3>Sia Stevens</h3>
+        <span class="coach-role">Founder & Lead Relationship Coach</span>
+        <p>Author of <em>A Million Green Flags</em> and creator of the Modern Relationships framework, Sia has spent years studying the psychology of connection, loneliness, and what it takes to truly show up for yourself and others. She built Alt Therapy because she couldn't find what she knew people actually needed.</p>
+        <div class="coach-specialties">
+          <span class="coach-tag">Relationship Dynamics</span>
+          <span class="coach-tag">Loneliness</span>
+          <span class="coach-tag">Dating & Attachment</span>
+          <span class="coach-tag">Life Navigation</span>
+        </div>
+      </div>
+    </div>
+    <div class="coach-card reveal">
+      <div class="coach-avatar avatar-forest">M</div>
+      <div class="coach-info">
+        <h3>Matthew Melzer</h3>
+        <span class="coach-role">Lead Coach</span>
+        <p>Matthew brings a grounded, no-nonsense approach to coaching that meets people exactly where they are — without judgment, without jargon. Known for his warmth and ability to build trust quickly, he specializes in working with people navigating major life transitions and those who've never felt comfortable asking for help.</p>
+        <div class="coach-specialties">
+          <span class="coach-tag">Life Transitions</span>
+          <span class="coach-tag">Men's Work</span>
+          <span class="coach-tag">Anxiety & Stress</span>
+          <span class="coach-tag">Couples Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-eyebrow eyebrow-dark">Pricing</div>
+  <h2 class="section-title">Invest in showing up<br>for yourself.</h2>
+  <p class="section-sub">All sessions are in-person across Seattle and the Pacific Northwest. No hidden fees. Cancel anytime. Free 15-minute discovery call included with every plan.</p>
+  <p style="font-size:15px;color:var(--muted);margin-bottom:48px;padding:20px 28px;background:var(--forest-pale);border-radius:10px;border-left:4px solid var(--forest);max-width:680px;">
+    🎁 <strong style="color:var(--forest);">Not sure where to start?</strong> Every journey begins with a free 15-minute video call with one of our coaches — no commitment, just a conversation. <a href="#intake" style="color:var(--forest);font-weight:600;">Claim yours above →</a>
+  </p>
+  <div class="pricing-grid">
+    <div class="price-card reveal">
+      <div class="price-tier">Drop-In</div>
+      <div class="price-amount"><sup>$</sup>165</div>
+      <div class="price-per">per session · no commitment</div>
+      <ul class="price-features">
+        <li class="price-feature">1 session (90 minutes)</li>
+        <li class="price-feature">Any session type</li>
+        <li class="price-feature">Coach matching included</li>
+        <li class="price-feature">Post-session follow-up notes</li>
+      </ul>
+      <a href="#intake" class="btn-price" style="display:block;text-align:center;text-decoration:none;line-height:1;">Claim Your Free Call</a>
+    </div>
+    <div class="price-card featured reveal">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="price-tier">Companion</div>
+      <div class="price-amount"><sup>$</sup>520</div>
+      <div class="price-per">per month · 4 sessions</div>
+      <ul class="price-features">
+        <li class="price-feature">4 sessions per month</li>
+        <li class="price-feature">Mix any session types</li>
+        <li class="price-feature">Dedicated coach</li>
+        <li class="price-feature">Between-session check-ins</li>
+        <li class="price-feature">Monthly progress session</li>
+      </ul>
+      <a href="#intake" class="btn-price" style="display:block;text-align:center;text-decoration:none;line-height:1;">Claim Your Free Call</a>
+    </div>
+    <div class="price-card reveal">
+      <div class="price-tier">Inner Circle</div>
+      <div class="price-amount"><sup>$</sup>920</div>
+      <div class="price-per">per month · 8 sessions</div>
+      <ul class="price-features">
+        <li class="price-feature">8 sessions per month</li>
+        <li class="price-feature">Priority scheduling</li>
+        <li class="price-feature">Dedicated lead coach</li>
+        <li class="price-feature">Unlimited messaging access</li>
+        <li class="price-feature">Monthly strategy session</li>
+        <li class="price-feature">Full AMGF course included</li>
+      </ul>
+      <a href="#intake" class="btn-price" style="display:block;text-align:center;text-decoration:none;line-height:1;">Claim Your Free Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-eyebrow eyebrow-gold">Real Stories</div>
+  <h2 class="section-title" style="color:white">It works because it's real.</h2>
+  <p class="section-sub">Early clients from our Seattle pilot program, 2025.</p>
+  <div class="testi-grid">
+    <div class="testi reveal">
+      <div class="testi-quote">&ldquo;</div>
+      <p>I'd been to three therapists in four years and none of them came close to what one afternoon walk with my Alt Therapy coach did. She just got it.</p>
+      <div class="testi-author">
+        <div class="testi-av testi-av-1">M</div>
+        <div>
+          <div class="testi-name">Maya R.</div>
+          <div class="testi-desc">Seattle · Walk & Talk</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi reveal">
+      <div class="testi-quote">&ldquo;</div>
+      <p>My partner and I were on the edge. Having someone come to our actual home — see how we live — that context changed everything. It felt real.</p>
+      <div class="testi-author">
+        <div class="testi-av testi-av-2">D</div>
+        <div>
+          <div class="testi-name">Daniel & Priya T.</div>
+          <div class="testi-desc">Bellevue · Couples Companionship</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi reveal">
+      <div class="testi-quote">&ldquo;</div>
+      <p>I was the guy who would never do therapy. Alt Therapy felt like having a really wise friend who just happened to know exactly what questions to ask.</p>
+      <div class="testi-author">
+        <div class="testi-av testi-av-3">J</div>
+        <div>
+          <div class="testi-name">James K.</div>
+          <div class="testi-desc">Tacoma · Life Navigation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK BAND -->
+<section class="book-section">
+  <div>
+    <h2>Part of something bigger.<br>The Sia Stevens universe.</h2>
+    <p>Alt Therapy is the real-world, in-person extension of the philosophy behind <em>A Million Green Flags</em> — the book helping thousands rewire how they show up in relationships. The coaching methodology, the framework, the approach — it all comes from the same place.</p>
+    <div class="book-btns">
+      <a href="https://siastevens.com" class="btn-book-w" target="_blank">Read the Book</a>
+      <a href="https://relationships101.co" class="btn-book-o" target="_blank">Take the Course</a>
+    </div>
+  </div>
+  <div class="book-spine">
+    <div class="book-spine-inner">
+      <div class="bt">A Million<br>Green Flags</div>
+      <div class="ba">Sia Stevens</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="wm">ALT THERAPY</span>
+      <p>Real-life coaching and companionship for modern humans navigating loneliness, love, and everything in between. Serving Seattle & the Pacific Northwest.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <a href="#">Walk & Talk</a>
+      <a href="#">Couples Support</a>
+      <a href="#">Life Navigation</a>
+      <a href="#">Activity Sessions</a>
+      <a href="#">Presence Support</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About Us</a>
+      <a href="#">Our Coaches</a>
+      <a href="#">Work With Us</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-col">
+      <h5>Sia Stevens</h5>
+      <a href="https://siastevens.com" target="_blank">A Million Green Flags</a>
+      <a href="https://relationships101.co" target="_blank">AMGF Course</a>
+      <a href="#">Instagram</a>
+      <a href="#">Newsletter</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Alt Therapy. Powered by Sia Stevens.</p>
+    <p class="footer-legal">Alt Therapy is a coaching and companionship service. We are not a licensed mental health practice and do not provide clinical therapy, diagnosis, or treatment. For clinical mental health support, please consult a licensed professional.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+// ── EMAILJS CONFIG ── swap these with your real credentials from emailjs.com
+const EMAILJS_PUBLIC_KEY  = '0U39SEsoOjAQCY-cB';
+const EMAILJS_SERVICE_ID  = 'service_n8i9gde';
+const EMAILJS_TEMPLATE_ID = 'template_kg5sxlx';
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+// ── STATE ──
+let aiResponse = '';
+let selectedChips = [];
+
+// ── CHIP TOGGLE ──
+const colorMap = {forest:'active', gold:'active-gold', terra:'active-terra'};
+function toggleChip(el, color){
+  const cls = colorMap[color] || 'active';
+  const allActive = ['active','active-gold','active-terra'];
+  const isOn = allActive.some(c => el.classList.contains(c));
+  allActive.forEach(c => el.classList.remove(c));
+  if(!isOn) el.classList.add(cls);
+}
+
+// ── STEP 1: GET AI MATCH ──
+const analyzingMessages = [
+  'Reading what you shared…',
+  'Understanding your situation…',
+  'Drawing on our experience with similar stories…',
+  'Matching you to the right support…',
+  'Crafting your personal recommendation…',
+];
+
+function showOverlay(){
+  const overlay = document.getElementById('pageOverlay');
+  const msg = document.getElementById('overlayMsg');
+  const bar = document.getElementById('overlayBar');
+  overlay.classList.add('show');
+  let i = 0; let pct = 0;
+  const msgInterval = setInterval(()=>{
+    i = (i+1) % analyzingMessages.length;
+    msg.style.opacity = '0';
+    setTimeout(()=>{ msg.textContent = analyzingMessages[i]; msg.style.opacity = '1'; }, 300);
+  }, 1600);
+  const barInterval = setInterval(()=>{
+    pct = Math.min(pct + Math.random()*12, 88);
+    bar.style.width = pct + '%';
+  }, 400);
+  return { msgInterval, barInterval, bar, overlay };
+}
+
+function hideOverlay({ msgInterval, barInterval, bar, overlay }){
+  clearInterval(msgInterval); clearInterval(barInterval);
+  bar.style.width = '100%';
+  return new Promise(r => setTimeout(()=>{ overlay.classList.remove('show'); r(); }, 500));
+}
+
+// Smart fallback responses based on chips/text
+function getFallbackResponse(chips, text){
+  const t = text.toLowerCase();
+  const c = chips.join(' ').toLowerCase();
+  const all = t + ' ' + c;
+
+  if(all.includes('couple') || all.includes('partner') || all.includes('relationship tension') || all.includes('communication')){
+    return "What you're describing — that feeling of being stuck in the same loop with someone you love — is something we've helped many couples work through. The breakthrough rarely happens in an office. Our Couples Companionship sessions come to your space, your routine, and work with the real texture of your life together. We've seen couples go from gridlock to genuine reconnection, not by talking about their problems in a neutral room, but by having a warm guide present in their actual world. Your free 15-minute call is the first step — just two humans getting to know your situation before anything else.";
+  }
+  if(all.includes('lonely') || all.includes('alone') || all.includes('isolated') || all.includes('friend') || all.includes('friends')){
+    return "That particular kind of loneliness — being surrounded by a city full of people and still feeling invisible — is one of the most common things people come to us with, and one of the hardest to admit. Our Activity Sessions and Walk & Talk coaching are designed exactly for this: we show up, we do something real together, and connection happens naturally — the way it used to before everyone got so busy. You don't have to navigate this alone. Book your free 15-minute call and let's start there.";
+  }
+  if(all.includes('anxiety') || all.includes('nervous') || all.includes('freeze') || all.includes('terrified') || all.includes('scared')){
+    return "Anxiety has a way of shrinking your world down, and we've worked with a lot of people who felt exactly what you're describing. What we've found is that movement and real-world presence does what no office session can — Walk & Talk coaching gets your body and mind working together, and our Presence Support means you don't have to walk into the hard moments alone anymore. We'd love to hear more about what you're navigating. Your free 15-minute call is completely no-pressure — just a conversation.";
+  }
+  if(all.includes('stuck') || all.includes('purpose') || all.includes('career') || all.includes('direction') || all.includes('figure out')){
+    return "That feeling of being stuck while it seems like everyone else has figured it out — we hear this constantly, and we want you to know it's far more common than it looks from the outside. Our Life Navigation coaching walks alongside you in your daily life, not just in a scheduled session, helping you untangle what you actually want from what you think you should want. We've helped a lot of people find their footing again. Start with your free 15-minute call — no agenda, just a real conversation.";
+  }
+  if(all.includes('dating') || all.includes('single') || all.includes('connect') || all.includes('relationship')){
+    return "Dating in the modern world is genuinely hard, and the fact that you're reflecting on it shows real self-awareness. We've worked with a lot of people who felt like connection just wasn't clicking — and usually, the shift happens not from more apps or more dates, but from understanding your own patterns first. Our Life Navigation and Presence Support coaching puts us right there with you in real situations, helping you show up as the person you actually are. Let's start with your free 15-minute call.";
+  }
+  // Generic warm fallback
+  return "What you've shared takes courage to put into words, and we want you to know — we've sat with people navigating exactly this kind of moment, and things can shift more than you might expect right now. Based on what you've told us, we think a conversation with one of our coaches could open something up for you. Our approach isn't a clipboard and a 50-minute hour — we show up in your real life, wherever that is. Your next step is a free 15-minute video call, no pressure, just two humans connecting.";
+}
+
+const ANTHROPIC_API_KEY = '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';
+
+const isProduction = window.location.hostname === 'anytimegorgeous.github.io' ||
+  window.location.hostname === 'alttherapy.co' ||
+  window.location.hostname === 'www.alttherapy.co';
+
+async function analyzeIntake(){
+  selectedChips = [...document.querySelectorAll('.chip')].filter(c =>
+    ['active','active-gold','active-terra'].some(cls => c.classList.contains(cls))
+  ).map(c => c.textContent.trim());
+  const text = document.getElementById('intakeText').value.trim();
+
+  if(selectedChips.length === 0 && text.length < 8){
+    document.getElementById('intakeResultText').innerHTML = 'Select what applies or tell us a little more — even a sentence helps us match you perfectly.';
+    document.getElementById('intakeResult').classList.add('show'); return;
+  }
+
+  document.getElementById('step1').style.display = 'none';
+  const anim = showOverlay();
+
+  const prompt = `You are a warm, empathetic intake coach for Alt Therapy — a premium real-life coaching and companionship service in Seattle. We are NOT a clinical therapy practice; we are coaches who show up in real life alongside people — on walks, at events, in their homes — to provide genuine human support, guidance, and companionship.
+
+A potential client has shared what they're navigating:
+Selected tags: ${selectedChips.length > 0 ? selectedChips.join(', ') : 'none selected'}
+Their own words: "${text || 'not provided'}"
+
+Do two things:
+
+1. From this list, select the 2-4 most relevant tags: Feeling lonely, Relationship tension, Life feels stuck, Dating struggles, Anxiety, Need someone to talk to, Big decision ahead, Grief or loss, Career crossroads, Couples friction, Social anxiety, Just need a friend
+
+2. Write a warm, confident 3-4 sentence response that does ALL of the following:
+   - Acknowledge specifically what they're going through (reference their actual words or tags)
+   - Share that we've worked with many people in exactly this situation and what that experience looks like — make them feel they're not alone and that we genuinely understand
+   - Recommend the specific Alt Therapy service best suited to them and briefly explain WHY it works for this situation
+   - End warmly by inviting them to book their free 15-minute video call — frame it as a no-pressure conversation, just two humans connecting
+
+Tone: warm, direct, personal — like a wise friend who happens to know exactly what to say. Never clinical, never generic.
+
+Format as JSON only, no markdown:
+{"tags":["tag1","tag2"],"response":"Your message here."}`;
+
+  if(!isProduction){
+    // Simulate delay for demo
+    await new Promise(r => setTimeout(r, 3200));
+    await hideOverlay(anim);
+    aiResponse = getFallbackResponse(selectedChips, text);
+    document.getElementById('intakeResultText').innerHTML = aiResponse;
+    document.getElementById('intakeResult').classList.add('show');
+    document.getElementById('step2').style.display = 'block';
+    document.getElementById('intakeResult').scrollIntoView({behavior:'smooth',block:'nearest'});
+    return;
+  }
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:500,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content[0].text.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(raw);
+
+    await hideOverlay(anim);
+
+    document.querySelectorAll('.chip').forEach(chip => {
+      ['active','active-gold','active-terra'].forEach(c => chip.classList.remove(c));
+      if(parsed.tags && parsed.tags.includes(chip.textContent.trim())){
+        chip.classList.add('active');
+      }
+    });
+
+    aiResponse = parsed.response;
+    document.getElementById('intakeResultText').innerHTML = parsed.response;
+    document.getElementById('intakeResult').classList.add('show');
+    document.getElementById('step2').style.display = 'block';
+    document.getElementById('intakeResult').scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  } catch(e) {
+    await hideOverlay(anim);
+    aiResponse = getFallbackResponse(selectedChips, text);
+    document.getElementById('intakeResultText').innerHTML = aiResponse;
+    document.getElementById('intakeResult').classList.add('show');
+    document.getElementById('step2').style.display = 'block';
+  }
+}
+
+// ── STEP 2: SUBMIT CONTACT FORM ──
+async function submitForm(){
+  const name  = document.getElementById('userName').value.trim();
+  const email = document.getElementById('userEmail').value.trim();
+  const phone = document.getElementById('userPhone').value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Clear previous errors
+  document.querySelectorAll('.field-error').forEach(e => e.remove());
+  document.querySelectorAll('.field-input-error').forEach(e => e.classList.remove('field-input-error'));
+
+  let hasError = false;
+
+  if(!name){
+    showFieldError('userName', 'Name is required');
+    hasError = true;
+  }
+  if(!email){
+    showFieldError('userEmail', 'Email address is required');
+    hasError = true;
+  } else if(!emailRegex.test(email)){
+    showFieldError('userEmail', 'Please enter a valid email address');
+    hasError = true;
+  }
+  if(hasError) return;
+
+  const submitBtn = document.getElementById('submitBtn');
+  const formMsg = document.getElementById('formMsg');
+  submitBtn.textContent = 'Sending…';
+  submitBtn.disabled = true;
+  formMsg.style.display = 'none';
+
+  const finalChips = [...document.querySelectorAll('.chip')].filter(c =>
+    ['active','active-gold','active-terra'].some(cls => c.classList.contains(cls))
+  ).map(c => c.textContent.trim());
+
+  const templateParams = {
+    to_email:      email,
+    client_name:   name,
+    client_email:  email,
+    client_phone:  phone || 'Not provided',
+    selected_tags: finalChips.join(', ') || 'None selected',
+    their_words:   document.getElementById('intakeText').value.trim() || 'Not provided',
+    ai_response:   aiResponse,
+    reply_to:      'alttherapyservice@gmail.com',
+  };
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+    // Success
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('intakeResult').style.display = 'none';
+    document.getElementById('chipsWrap').style.display = 'none';
+    document.querySelector('.intake-textarea').style.display = 'none';
+    document.getElementById('step3').style.display = 'block';
+  } catch(err) {
+    // Failure — show inline error, re-enable button
+    submitBtn.textContent = 'Book My Free Call →';
+    submitBtn.disabled = false;
+    formMsg.style.display = 'block';
+    formMsg.style.background = '#fdf0ec';
+    formMsg.style.borderColor = 'var(--terra)';
+    formMsg.innerHTML = '⚠️ Your message could not be sent. Please try again — if the problem persists, email us directly at <a href="mailto:alttherapyservice@gmail.com" style="color:var(--terra)">alttherapyservice@gmail.com</a>';
+    console.error(err);
+  }
+}
+
+function showFieldError(fieldId, message){
+  const field = document.getElementById(fieldId);
+  field.classList.add('field-input-error');
+  const err = document.createElement('p');
+  err.className = 'field-error';
+  err.style.cssText = 'font-size:12px;color:var(--terra);margin-top:4px;margin-bottom:0;';
+  err.textContent = message;
+  field.parentNode.insertBefore(err, field.nextSibling);
+}
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
