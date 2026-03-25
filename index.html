@@ -1215,12 +1215,74 @@ Format as JSON only, no markdown:
 
     await hideOverlay(anim);
 
+    // Map each chip to its correct color class
+    const chipColorMap = {
+      'Feeling lonely':'active',
+      'Relationship tension':'active-terra',
+      'Life feels stuck':'active',
+      'Dating struggles':'active-gold',
+      'Anxiety':'active',
+      'Need someone to talk to':'active-terra',
+      'Big decision ahead':'active-gold',
+      'Grief or loss':'active-terra',
+      'Career crossroads':'active',
+      'Couples friction':'active-gold',
+      'Social anxiety':'active-terra',
+      'Just need a friend':'active'
+    };
+
+    // Clear all chips first
     document.querySelectorAll('.chip').forEach(chip => {
       ['active','active-gold','active-terra'].forEach(c => chip.classList.remove(c));
-      if(parsed.tags && parsed.tags.includes(chip.textContent.trim())){
-        chip.classList.add('active');
-      }
     });
+
+    // Apply AI-selected tags with correct colors
+    let matched = 0;
+    if(parsed.tags && parsed.tags.length > 0){
+      document.querySelectorAll('.chip').forEach(chip => {
+        const chipText = chip.textContent.trim();
+        const aiMatch = parsed.tags.some(t => t.trim().toLowerCase() === chipText.toLowerCase());
+        if(aiMatch){
+          chip.classList.add(chipColorMap[chipText] || 'active');
+          matched++;
+        }
+      });
+    }
+
+    // Keyword fallback if AI tags didn't match anything
+    if(matched === 0){
+      const allInput = (text + ' ' + selectedChips.join(' ')).toLowerCase();
+      const keywordMap = [
+        {words:['couple','partner','relationship','communication','fight','argument'], chip:'Relationship tension'},
+        {words:['lonely','alone','isolated','no friends','no one'], chip:'Feeling lonely'},
+        {words:['anxious','anxiety','nervous','scared','terrified','freeze'], chip:'Anxiety'},
+        {words:['stuck','lost','purpose','direction','figure out'], chip:'Life feels stuck'},
+        {words:['dating','single','date','connect'], chip:'Dating struggles'},
+        {words:['grief','loss','lost','died','death','mourning'], chip:'Grief or loss'},
+        {words:['career','job','work','fired','quit'], chip:'Career crossroads'},
+        {words:['couples','marriage','spouse','husband','wife'], chip:'Couples friction'},
+      ];
+      let keywordMatched = false;
+      for(const km of keywordMap){
+        if(km.words.some(w => allInput.includes(w))){
+          document.querySelectorAll('.chip').forEach(chip => {
+            if(chip.textContent.trim() === km.chip){
+              chip.classList.add(chipColorMap[km.chip] || 'active');
+              keywordMatched = true;
+            }
+          });
+          if(keywordMatched) break;
+        }
+      }
+      // Ultimate fallback — always select "Need someone to talk to"
+      if(!keywordMatched){
+        document.querySelectorAll('.chip').forEach(chip => {
+          if(chip.textContent.trim() === 'Need someone to talk to'){
+            chip.classList.add('active-terra');
+          }
+        });
+      }
+    }
 
     aiResponse = parsed.response;
     document.getElementById('intakeResultText').innerHTML = parsed.response;
