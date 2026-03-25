@@ -1116,36 +1116,7 @@ function hideOverlay({ msgInterval, barInterval, bar, overlay }){
   return new Promise(r => setTimeout(()=>{ overlay.classList.remove('show'); r(); }, 500));
 }
 
-// Smart fallback responses based on chips/text
-function getFallbackResponse(chips, text){
-  const t = text.toLowerCase();
-  const c = chips.join(' ').toLowerCase();
-  const all = t + ' ' + c;
-
-  if(all.includes('couple') || all.includes('partner') || all.includes('relationship tension') || all.includes('communication')){
-    return "What you're describing — that feeling of being stuck in the same loop with someone you love — is something we've helped many couples work through. The breakthrough rarely happens in an office. Our Couples Companionship sessions come to your space, your routine, and work with the real texture of your life together. We've seen couples go from gridlock to genuine reconnection, not by talking about their problems in a neutral room, but by having a warm guide present in their actual world. Your free 15-minute call is the first step — just two humans getting to know your situation before anything else.";
-  }
-  if(all.includes('lonely') || all.includes('alone') || all.includes('isolated') || all.includes('friend') || all.includes('friends')){
-    return "That particular kind of loneliness — being surrounded by a city full of people and still feeling invisible — is one of the most common things people come to us with, and one of the hardest to admit. Our Activity Sessions and Walk & Talk coaching are designed exactly for this: we show up, we do something real together, and connection happens naturally — the way it used to before everyone got so busy. You don't have to navigate this alone. Book your free 15-minute call and let's start there.";
-  }
-  if(all.includes('anxiety') || all.includes('nervous') || all.includes('freeze') || all.includes('terrified') || all.includes('scared')){
-    return "Anxiety has a way of shrinking your world down, and we've worked with a lot of people who felt exactly what you're describing. What we've found is that movement and real-world presence does what no office session can — Walk & Talk coaching gets your body and mind working together, and our Presence Support means you don't have to walk into the hard moments alone anymore. We'd love to hear more about what you're navigating. Your free 15-minute call is completely no-pressure — just a conversation.";
-  }
-  if(all.includes('stuck') || all.includes('purpose') || all.includes('career') || all.includes('direction') || all.includes('figure out')){
-    return "That feeling of being stuck while it seems like everyone else has figured it out — we hear this constantly, and we want you to know it's far more common than it looks from the outside. Our Life Navigation coaching walks alongside you in your daily life, not just in a scheduled session, helping you untangle what you actually want from what you think you should want. We've helped a lot of people find their footing again. Start with your free 15-minute call — no agenda, just a real conversation.";
-  }
-  if(all.includes('dating') || all.includes('single') || all.includes('connect') || all.includes('relationship')){
-    return "Dating in the modern world is genuinely hard, and the fact that you're reflecting on it shows real self-awareness. We've worked with a lot of people who felt like connection just wasn't clicking — and usually, the shift happens not from more apps or more dates, but from understanding your own patterns first. Our Life Navigation and Presence Support coaching puts us right there with you in real situations, helping you show up as the person you actually are. Let's start with your free 15-minute call.";
-  }
-  // Generic warm fallback
-  return "What you've shared takes courage to put into words, and we want you to know — we've sat with people navigating exactly this kind of moment, and things can shift more than you might expect right now. Based on what you've told us, we think a conversation with one of our coaches could open something up for you. Our approach isn't a clipboard and a 50-minute hour — we show up in your real life, wherever that is. Your next step is a free 15-minute video call, no pressure, just two humans connecting.";
-}
-
 const ANTHROPIC_API_KEY = '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';
-
-const isProduction = window.location.hostname === 'anytimegorgeous.github.io' ||
-  window.location.hostname === 'alttherapy.co' ||
-  window.location.hostname === 'www.alttherapy.co';
 
 async function analyzeIntake(){
   selectedChips = [...document.querySelectorAll('.chip')].filter(c =>
@@ -1159,6 +1130,10 @@ async function analyzeIntake(){
   }
 
   document.getElementById('step1').style.display = 'none';
+  // Clear all chips immediately before API call
+  document.querySelectorAll('.chip').forEach(chip => {
+    ['active','active-gold','active-terra'].forEach(c => chip.classList.remove(c));
+  });
   const anim = showOverlay();
 
   const prompt = `You are a warm, empathetic intake coach for Alt Therapy — a premium real-life coaching and companionship service in Seattle. We are NOT a clinical therapy practice; we are coaches who show up in real life alongside people — on walks, at events, in their homes — to provide genuine human support, guidance, and companionship.
@@ -1177,40 +1152,37 @@ Do two things:
    - Recommend the specific Alt Therapy service best suited to them and briefly explain WHY it works for this situation
    - End warmly by inviting them to book their free 15-minute video call — frame it as a no-pressure conversation, just two humans connecting
 
-Tone: warm, direct, personal — like a wise friend who happens to know exactly what to say. Never clinical, never generic.
+Tone: warm, punchy, human — like a wise friend texting you, not writing an essay. Use 1-2 relevant emojis naturally. Keep it under 4 short sentences. No walls of text.
 
 Format as JSON only, no markdown:
 {"tags":["tag1","tag2"],"response":"Your message here."}`;
 
-  if(!isProduction){
-    // Simulate delay for demo
-    await new Promise(r => setTimeout(r, 3200));
-    await hideOverlay(anim);
-    aiResponse = getFallbackResponse(selectedChips, text);
-    document.getElementById('intakeResultText').innerHTML = aiResponse;
-    document.getElementById('intakeResult').classList.add('show');
-    document.getElementById('step2').style.display = 'block';
-    document.getElementById('intakeResult').scrollIntoView({behavior:'smooth',block:'nearest'});
-    return;
+  async function callClaude(prompt){
+    // Attempt 1: internal artifact call (no key)
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body: JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:prompt}]})
+      });
+      const data = await res.json();
+      if(data.error) throw new Error(data.error.message);
+      return data.content[0].text;
+    } catch(e){}
+
+    // Attempt 2: hardcoded key (GitHub Pages / production)
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body: JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:prompt}]})
+    });
+    const data = await res.json();
+    if(data.error) throw new Error(data.error.message);
+    return data.content[0].text;
   }
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:500,
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    const data = await res.json();
-    const raw = data.content[0].text.replace(/```json|```/g,'').trim();
+    const raw = (await callClaude(prompt)).replace(/```json|```/g,'').trim();
     const parsed = JSON.parse(raw);
 
     await hideOverlay(anim);
@@ -1231,57 +1203,17 @@ Format as JSON only, no markdown:
       'Just need a friend':'active'
     };
 
-    // Clear all chips first
+    // Clear all chips then apply AI-selected tags
     document.querySelectorAll('.chip').forEach(chip => {
       ['active','active-gold','active-terra'].forEach(c => chip.classList.remove(c));
     });
-
-    // Apply AI-selected tags with correct colors
-    let matched = 0;
     if(parsed.tags && parsed.tags.length > 0){
       document.querySelectorAll('.chip').forEach(chip => {
         const chipText = chip.textContent.trim();
-        const aiMatch = parsed.tags.some(t => t.trim().toLowerCase() === chipText.toLowerCase());
-        if(aiMatch){
+        if(parsed.tags.some(t => t.trim().toLowerCase() === chipText.toLowerCase())){
           chip.classList.add(chipColorMap[chipText] || 'active');
-          matched++;
         }
       });
-    }
-
-    // Keyword fallback if AI tags didn't match anything
-    if(matched === 0){
-      const allInput = (text + ' ' + selectedChips.join(' ')).toLowerCase();
-      const keywordMap = [
-        {words:['couple','partner','relationship','communication','fight','argument'], chip:'Relationship tension'},
-        {words:['lonely','alone','isolated','no friends','no one'], chip:'Feeling lonely'},
-        {words:['anxious','anxiety','nervous','scared','terrified','freeze'], chip:'Anxiety'},
-        {words:['stuck','lost','purpose','direction','figure out'], chip:'Life feels stuck'},
-        {words:['dating','single','date','connect'], chip:'Dating struggles'},
-        {words:['grief','loss','lost','died','death','mourning'], chip:'Grief or loss'},
-        {words:['career','job','work','fired','quit'], chip:'Career crossroads'},
-        {words:['couples','marriage','spouse','husband','wife'], chip:'Couples friction'},
-      ];
-      let keywordMatched = false;
-      for(const km of keywordMap){
-        if(km.words.some(w => allInput.includes(w))){
-          document.querySelectorAll('.chip').forEach(chip => {
-            if(chip.textContent.trim() === km.chip){
-              chip.classList.add(chipColorMap[km.chip] || 'active');
-              keywordMatched = true;
-            }
-          });
-          if(keywordMatched) break;
-        }
-      }
-      // Ultimate fallback — always select "Need someone to talk to"
-      if(!keywordMatched){
-        document.querySelectorAll('.chip').forEach(chip => {
-          if(chip.textContent.trim() === 'Need someone to talk to'){
-            chip.classList.add('active-terra');
-          }
-        });
-      }
     }
 
     aiResponse = parsed.response;
@@ -1292,10 +1224,18 @@ Format as JSON only, no markdown:
 
   } catch(e) {
     await hideOverlay(anim);
-    aiResponse = getFallbackResponse(selectedChips, text);
+
+    // Default tag selection — Need someone to talk to
+    document.querySelectorAll('.chip').forEach(chip => {
+      ['active','active-gold','active-terra'].forEach(c => chip.classList.remove(c));
+      if(chip.textContent.trim() === 'Need someone to talk to') chip.classList.add('active-terra');
+    });
+
+    aiResponse = "We hear you, and we're really glad you reached out. 💚 Whatever you're navigating right now, you don't have to figure it out alone — that's exactly what we're here for. Let's start with a free 15-minute call, no pressure, just a warm conversation with one of our coaches.";
     document.getElementById('intakeResultText').innerHTML = aiResponse;
     document.getElementById('intakeResult').classList.add('show');
     document.getElementById('step2').style.display = 'block';
+    document.getElementById('intakeResult').scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 }
 
@@ -1355,13 +1295,16 @@ async function submitForm(){
     document.querySelector('.intake-textarea').style.display = 'none';
     document.getElementById('step3').style.display = 'block';
   } catch(err) {
-    // Failure — show inline error, re-enable button
     submitBtn.textContent = 'Book My Free Call →';
     submitBtn.disabled = false;
+
+    const mailtoBody = `Hi Alt Therapy team,%0A%0AMy name is ${encodeURIComponent(name)} and I'd like to book a free 15-minute call.%0A%0AWhat I'm navigating: ${encodeURIComponent(finalChips.join(', ') || 'Not selected')}%0A%0AIn my own words: ${encodeURIComponent(document.getElementById('intakeText').value.trim())}%0A%0AYour recommendation: ${encodeURIComponent(aiResponse)}%0A%0ABest way to reach me: ${encodeURIComponent(email)}${phone ? '%0APhone: ' + encodeURIComponent(phone) : ''}`;
+    const mailtoLink = `mailto:alttherapyservice@gmail.com?subject=Free Call Request — ${encodeURIComponent(name)}&body=${mailtoBody}`;
+
     formMsg.style.display = 'block';
     formMsg.style.background = '#fdf0ec';
     formMsg.style.borderColor = 'var(--terra)';
-    formMsg.innerHTML = '⚠️ Your message could not be sent. Please try again — if the problem persists, email us directly at <a href="mailto:alttherapyservice@gmail.com" style="color:var(--terra)">alttherapyservice@gmail.com</a>';
+    formMsg.innerHTML = `Our email service is having a moment 😅 — but don't worry! <a href="${mailtoLink}" style="color:var(--terra);font-weight:600;">Click here to open your email app</a> — it's pre-filled with everything, just hit send.`;
     console.error(err);
   }
 }
