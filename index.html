@@ -1116,7 +1116,7 @@ function hideOverlay({ msgInterval, barInterval, bar, overlay }){
   return new Promise(r => setTimeout(()=>{ overlay.classList.remove('show'); r(); }, 500));
 }
 
-const ANTHROPIC_API_KEY = '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';
+const ANTHROPIC_API_KEY = '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';
 
 async function analyzeIntake(){
   selectedChips = [...document.querySelectorAll('.chip')].filter(c =>
@@ -1130,7 +1130,6 @@ async function analyzeIntake(){
   }
 
   document.getElementById('step1').style.display = 'none';
-  // Clear all chips immediately before API call
   document.querySelectorAll('.chip').forEach(chip => {
     ['active','active-gold','active-terra'].forEach(c => chip.classList.remove(c));
   });
@@ -1158,22 +1157,14 @@ Format as JSON only, no markdown:
 {"tags":["tag1","tag2"],"response":"Your message here."}`;
 
   async function callClaude(prompt){
-    // Attempt 1: internal artifact call (no key)
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method:'POST',
-        headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-        body: JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:prompt}]})
-      });
-      const data = await res.json();
-      if(data.error) throw new Error(data.error.message);
-      return data.content[0].text;
-    } catch(e){}
-
-    // Attempt 2: hardcoded key (GitHub Pages / production)
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':ANTHROPIC_API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key': ANTHROPIC_API_KEY,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
       body: JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:prompt}]})
     });
     const data = await res.json();
